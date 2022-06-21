@@ -29,6 +29,3 @@ code[style*='user-select'] {
 #content_views pre {
     user-select: auto !important;
 }
-iframe#ifcomment {
-    height: 10000px;
-}
