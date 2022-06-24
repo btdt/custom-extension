@@ -31,5 +31,14 @@
     },
     "omnibox": {
         "keyword": "c"
+    },
+    "commands": {
+        "highlight": {
+            "description": "高亮",
+            "suggested_key": {
+                "default": "Ctrl+Q",
+                "windows": "Ctrl+Q"
+            }
+        }
     }
 }

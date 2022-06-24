@@ -27,9 +27,11 @@ function getUUID() {
  * 高亮关键词
  * @param {HTMLElement} node HTML 节点
  * @param {String} keyword 关键词
+ * @param {Boolean} matchCase 区分大小写
  */
-function highlight(node = document?.body || {}, keyword = '') {
-    const reg = new RegExp(String(keyword).trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi');
+function highlight(node = document?.body || {}, keyword = '', matchCase = false) {
+    const mode = matchCase ? 'g' : 'gi';
+    const reg = new RegExp(String(keyword).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), mode);
     if (node.nodeType === 3) {
         const match = node.data.match(new RegExp(reg));
         if (match) {
@@ -47,7 +49,7 @@ function highlight(node = document?.body || {}, keyword = '') {
         }
     } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.dataset.highlight !== 'custom') {
         node.childNodes.forEach(item => {
-            highlight(item, keyword);
+            highlight(item, keyword, matchCase);
         });
     }
 }
@@ -74,7 +76,7 @@ function cancelHighlight(node = document?.body || {}) {
  * @param {String} message 消息内容
  * @param {Number} timeout 持续时间
  */
-function notice(message, timeout = 5000) {
+function notice(message, timeout = 3000) {
     if (!('Notification' in window) || Notification.permission === 'denied') {
         alert(message);
     } else if (Notification.permission === 'granted') {
@@ -125,26 +127,5 @@ function copy(text) {
                 }
             }
         );
-    });
-}
-
-/**
- * 驼峰式转下划线式
- * @param {String} text 需要转换的字符串
- * @returns {String}
- */
-function pascalToKebab(text = '') {
-    const result = text.replace(/[A-Z0-9]/g, match => `_${match.toLowerCase()}`);
-    return result.startsWith('_') ? result.slice(1) : result;
-}
-
-/**
- * 下划线式转驼峰式
- * @param {String} text 需要转换的字符串
- * @returns {String}
- */
-function kebabToPascal(text = '') {
-    return text.replace(/([^_])(?:_+([^_]))/g, ($0, $1, $2) => {
-        return `${$1}${$2.toUpperCase()}`;
     });
 }

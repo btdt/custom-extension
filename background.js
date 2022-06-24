@@ -23,29 +23,14 @@ chrome.contextMenus.create({
     contexts: ['all']
 });
 chrome.contextMenus.create({
-    id: 'pascal-to-kebab',
-    title: '驼峰式转下划线式',
-    contexts: ['selection']
-});
-chrome.contextMenus.create({
-    id: 'kebab-to-pascal',
-    title: '下划线式转驼峰式',
+    id: 'translate',
+    title: '翻译 %s',
     contexts: ['selection']
 });
 chrome.contextMenus.create({
     id: 'top',
     title: '返回顶部',
     contexts: ['all']
-});
-chrome.contextMenus.create({
-    id: 'hex',
-    title: '查看十六进制数据',
-    contexts: ['image']
-});
-chrome.contextMenus.create({
-    id: 'translate',
-    title: '翻译 %s',
-    contexts: ['selection']
 });
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     chrome.tabs.sendMessage(tab.id, info, messageCallback);
@@ -70,6 +55,10 @@ chrome.omnibox.onInputChanged.addListener((text, suggest) => {
                 description: '取消高亮'
             },
             {
+                content: `translate ${text}`,
+                description: `翻译 ${text}`
+            },
+            {
                 content: 'top',
                 description: '返回顶部'
             }
@@ -81,14 +70,23 @@ chrome.omnibox.onInputEntered.addListener((text, disposition) => {
     const textSplit = text.split(' ');
     const info = {
         menuItemId: textSplit[0],
-        selectionText: textSplit?.[1]
+        selectionText: text.substring(textSplit[0].length + 1)
     };
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         const tab = tabs[0];
         chrome.tabs.sendMessage(tab?.id, info, messageCallback);
     });
 });
-
+chrome.commands.onCommand.addListener(function (command) {
+    console.log('command', command);
+    const info = {
+        menuItemId: command
+    };
+    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+        const tab = tabs[0];
+        chrome.tabs.sendMessage(tab?.id, info, messageCallback);
+    });
+});
 function messageCallback(response) {
     if (response?.type === 'highlight') {
         chrome.contextMenus.update('cancel-highlight', { visible: response.visible });
