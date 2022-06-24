@@ -23,6 +23,7 @@ document.getElementById('keyword').addEventListener('keypress', e => {
 
 document.getElementById('match-case').addEventListener('click', () => {
     switchMatchCase();
+    document.getElementById('keyword').focus();
 });
 
 document.getElementById('match-case').addEventListener('keypress', e => {

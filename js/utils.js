@@ -30,6 +30,7 @@ function getUUID() {
  * @param {Boolean} matchCase 区分大小写
  */
 function highlight(node = document?.body || {}, keyword = '', matchCase = false) {
+    if (!keyword) return;
     const mode = matchCase ? 'g' : 'gi';
     const reg = new RegExp(String(keyword).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), mode);
     if (node.nodeType === 3) {
