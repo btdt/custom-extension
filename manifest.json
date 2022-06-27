@@ -1,11 +1,11 @@
 {
-    "$schema": "https://json.schemastore.org/chrome-manifest.json",
+    // "$schema": "https://json.schemastore.org/chrome-manifest.json",
     "manifest_version": 3,
     "version": "0.1.0",
     "name": "Custom",
     "short_name": "custom",
     "description": "custom extension",
-    "permissions": ["contextMenus", "clipboardWrite", "notifications"],
+    "permissions": ["contextMenus", "clipboardWrite", "notifications", "bookmarks"],
     "background": {
         "type": "module",
         "service_worker": "background.js"
@@ -41,4 +41,7 @@
             }
         }
     }
+    // "chrome_url_overrides": {
+    //     "newtab": "newtab/index.html"
+    // }
 }
