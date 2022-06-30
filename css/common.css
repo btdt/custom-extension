@@ -1,25 +1,9 @@
-html > head:empty + body,
-body[data-scheme='dark'] {
-    background-color: #333333;
-    color: #fff;
+body {
+    margin: 0;
 }
 span[data-highlight='custom'] {
-    background: #2E7D32;
+    background: #2e7d32;
     color: #fff;
-}
-div#_html.markdown-body {
-    background-color: #333333 !important;
-    color: #fff !important;
-}
-div#_html.markdown-body a {
-    color: #1890ff !important;
-}
-div#_html.markdown-body blockquote {
-    color: #aaa !important;
-}
-div#_html.markdown-body .octicon-link::before {
-    filter: invert(100%);
-    margin-top: 10px;
 }
 pre[style*='user-select'],
 code[style*='user-select'] {
