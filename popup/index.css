@@ -8,17 +8,9 @@ body {
     background-color: #333333;
 }
 
-@media (prefers-color-scheme: light) {
-    body {
-        color: #2b2b2b;
-        background-color: #f7f7f7;
-    }
-}
-
 .input-box {
     display: flex;
     align-items: center;
-
 }
 
 .input-search {
@@ -28,6 +20,8 @@ body {
     outline: none;
     border: 1px solid transparent;
     border-radius: 2px;
+    color: #ffffff;
+    background-color: #3c3c3c;
 }
 
 .input-search:where(:hover, :focus, :active) {
@@ -59,4 +53,15 @@ body {
 
 #match-case {
     right: 16px;
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        color: #2b2b2b;
+        background-color: #f7f7f7;
+    }
+    .input-search {
+        color: #2b2b2b;
+        background-color: transparent;
+    }
 }
