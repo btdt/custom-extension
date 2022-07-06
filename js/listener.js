@@ -35,8 +35,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse = function (
     } else if (request.menuItemId === 'translate') {
         window.open(`https://www.deepl.com/translator#en/zh/${text}`);
     } else if (request.menuItemId === 'edit') {
-        const target = getSelection()?.focusNode?.parentElement;
-        target?.setAttribute('contenteditable', '');
+        document.body.setAttribute('contenteditable', '');
     }
     return true;
 });
