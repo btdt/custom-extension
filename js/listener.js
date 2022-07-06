@@ -1,5 +1,4 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse = function () {}) => {
-    console.log(request);
     const text = request?.selectionText || getSelection().toString();
     if (request.menuItemId === 'highlight') {
         cancelHighlight(document.body);
@@ -35,12 +34,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse = function (
         }
     } else if (request.menuItemId === 'translate') {
         window.open(`https://www.deepl.com/translator#en/zh/${text}`);
-    } else if (request.menuItemId === 'top') {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
+    } else if (request.menuItemId === 'edit') {
+        const target = getSelection()?.focusNode?.parentElement;
+        target?.setAttribute('contenteditable', '');
     }
     return true;
 });

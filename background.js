@@ -13,11 +13,6 @@ chrome.contextMenus.create({
     visible: false
 });
 chrome.contextMenus.create({
-    id: 'uuid',
-    title: '生成 UUID',
-    contexts: ['all']
-});
-chrome.contextMenus.create({
     id: 'color-picker',
     title: '选取颜色',
     contexts: ['all']
@@ -28,8 +23,8 @@ chrome.contextMenus.create({
     contexts: ['selection']
 });
 chrome.contextMenus.create({
-    id: 'top',
-    title: '返回顶部',
+    id: 'edit',
+    title: '编辑页面',
     contexts: ['all']
 });
 chrome.contextMenus.onClicked.addListener((info, tab) => {
@@ -38,12 +33,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 // omnibox
 chrome.omnibox.onInputChanged.addListener((text, suggest) => {
     const list = [];
-    if (text.match(/uu|id/gi)) {
-        list.push({
-            content: 'uuid',
-            description: '生成 UUID'
-        });
-    }
     list.push(
         ...[
             {
@@ -57,10 +46,6 @@ chrome.omnibox.onInputChanged.addListener((text, suggest) => {
             {
                 content: `translate ${text}`,
                 description: `翻译 ${text}`
-            },
-            {
-                content: 'top',
-                description: '返回顶部'
             }
         ]
     );
@@ -91,7 +76,7 @@ function messageCallback(response) {
     if (response?.type === 'highlight') {
         chrome.contextMenus.update('cancel-highlight', { visible: response.visible });
     }
-    if (response.message) {
+    if (response?.message) {
         const uuid = getUUID();
         chrome.notifications.create(uuid, {
             type: 'basic',
